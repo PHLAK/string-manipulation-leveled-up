@@ -1,0 +1,37 @@
+.code {
+    display: inline-block;
+    font-family: monospace !important;
+    font-size: 2.85rem !important;
+    line-height: 5rem!important;
+    padding: 2rem !important;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+.text-red {
+    color: #BF616A;
+}
+
+.text-orange {
+    color: #D08770;
+}
+
+.text-yellow {
+    color: #EBCB8B;
+}
+
+.text-green {
+    color: #A3BE8C;
+}
+
+.text-blue {
+    color: #8FA1B3;
+}
+
+.text-purple {
+    color: #B48EAD;
+}
+
+.text-grey {
+    color: #65737E;
+}

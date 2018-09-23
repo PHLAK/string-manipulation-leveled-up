@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>String manipulation, leveled up! • By, Chris Kankiewicz</title>
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/ocean.css">
+        <link rel="stylesheet" href="css/custom.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+    </head>
+
+    <body class="position: relative;">
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>String manipulation,<br>leveled up!</h1>
+                </section>
+
+                <section>
+                    <div style="display: flex; justify-content: space-around; align-items: center;">
+                        <div style="width: 30%;">
+                            <img src="images/twitter.svg" alt="Twitter" width="480px">
+                        </div>
+
+                        <div style="width: 40%;">
+                            <img src="images/chris.jpg" alt="Chris Kankiewicz" width="640px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, .33);">
+                        </div>
+
+                        <div style="width: 30%;">
+                            <img src="images/octocat.png" alt="Octocat" width="400px">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-around; align-items: center;">
+                        <h4 style="width: 30%;">@PHLAK</h4>
+                        <h3 style="width: 40%;">Chris Kankiewicz</h3>
+                        <h4 style="width: 30%;">PHLAK</h4>
+                    </div>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>
+                            The Problem
+                            <div class="sub-title">
+                                with PHP's built-in string functions
+                            </div>
+                        </h1>
+                    </section>
+
+                    <section>
+                        <h2>Inconsistent & Unclear Naming</h2>
+                    </section>
+
+                    <section>
+                        <table style="width: 80%;">
+                            <tbody style="font-size: 150%; text-align: center;">
+                                <tr>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"><code>strstr</code></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"><code>sprintf</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"><code>str_pad</code></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"><code>ucfirst</code></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"><code>strtoupper</code></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"><code>strtok</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"><code>strspn</code></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"><code>strpbrk</code></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <section>
+                        <h2>Inconsistent Parameters</h2>
+                    </section>
+
+                    <section>
+                        <div class="code">
+                            <span class="text-blue">str_pad</span> ( <span class="text-purple">string</span> $<span class="text-red">input</span> , <span class="text-purple">mixed</span> $<span class="text-red">pad_length</span> , <span class="text-purple">string</span> $<span class="text-red">pad_string</span> )<br><br>
+                            <span class="text-blue">str_replace</span> ( <span class="text-purple">mixed</span> $<span class="text-red">search</span> , <span class="text-purple">mixed</span> $<span class="text-red">replace</span> , <span class="text-purple">mixed</span> $<span class="text-red">subject</span> )<br><br>
+                            <span class="text-blue">wordwrap</span> ( <span class="text-purple">string</span> $<span class="text-red">str</span> , <span class="text-purple">int</span> $<span class="text-red">width</span> )<br><br>
+                            <span class="text-blue">explode</span> ( <span class="text-purple">string</span> $<span class="text-red">delimiter</span> , <span class="text-purple">string</span> $<span class="text-red">string</span> )
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>Inside Out Operations</h2>
+                    </section>
+
+                    <section>
+                        <ol>
+                            <li>Grab the contents of a binary file</li>
+                            <li>Encode the contents of that file to base64</li>
+                            <li>Wrap the base64 string at 80 characters</li>
+                            <li>Replace all newline characters with a <code>&lt;br&gt;</code> element</li>
+                        </ol>
+                    </section>
+
+                    <section>
+                        <div class="code">
+                            <span class="fragment">
+                                $<span class="text-red">contents</span> = <span class="text-blue">file_get_contents</span>(<span class="text-green">'garbage.bin'</span>);<br><br>
+                            </span>
+
+                            <span class="fragment">
+                                <span class="text-blue">str_replace</span>(<span class="text-green">"\n"</span>, <span class="text-green">'&lt;br&gt;'</span>, <span class="text-blue">wordwrap</span>(<span class="text-blue">base64_encode</span>($<span class="text-red">contents</span>), <span class="text-orange">80</span>));
+                            </span>
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="code">
+                            <div class="fragment">
+                                $<span class="text-red">contents</span> = <span class="text-blue">file_get_contents</span>(<span class="text-green">'garbage.bin'</span>);
+                            </div>
+
+                            <div class="fragment">
+                                $<span class="text-red">base64</span> = <span class="text-blue">base64_encode</span>($<span class="text-red">contents</span>);
+                            </div>
+
+                            <div class="fragment">
+                                $<span class="text-red">wrapped</span> = <span class="text-blue">wordwrap</span>($<span class="text-red">base64</span>, <span class="text-orange">80</span>);
+                            </div>
+
+                            <br>
+
+                            <div class="fragment">
+                                <span class="text-blue">str_replace</span>(<span class="text-green">"\n"</span>, <span class="text-green">'&lt;br&gt;'</span>, $<span class="text-red">wrapped</span>);
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>
+                            The Solution
+                            <div class="sub-title">
+                                or, how I learned to stop worrying and love strings again
+                            </div>
+                        </h1>
+                    </section>
+
+                    <section>
+                        <div>
+                            <img src="images/twine.png" alt="Twine" style="max-width: 75%;">
+                        </div>
+                        <code>https://twine.phlak.net</code>
+                    </section>
+
+                    <section>
+                        <h2>Twine is a string manipulation library<br>with an expressive fluent syntax.</h2>
+                    </section>
+
+                    <section>
+                        <h2>
+                            By taking an object-oriented approach,<br>
+                            Twine makes string manipulation and<br>
+                            comparisons painless to read and write.
+                        </h2>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>
+                            Using Twine
+                            <div class="sub-title">
+                                Let the fun begin!
+                            </div>
+                        </h1>
+                    </section>
+
+                    <section>
+                        <code style="font-size: 2.85rem;">composer install phlak/twine</code>
+                    </section>
+
+                    <section>
+                        <div class="code">
+                            <span class="fragment">
+                                <span class="text-purple">use</span> PHLAK\<span class="text-yellow">Twine</span>;<br><br>
+                            </span>
+
+                            <span class="fragment">
+                                $<span class="text-red">string</span> = <span class="text-purple">new</span> Twine\<span class="text-yellow">Str</span>(<span class="text-green">'john pinkerton'</span>);<br><br>
+                            </span>
+
+                            <span class="fragment">
+                                <span class="text-grey">// or with the static make() method</span><br>
+                                $<span class="text-red">string</span> = Twine\<span class="text-yellow">Str</span>::<span class="text-blue">make</span>(<span class="text-green">'john pinkerton'</span>);<br><br>
+                            </span>
+
+                            <span class="fragment">
+                                <span class="text-grey">// or with the helper function</span><br>
+                                $<span class="text-red">string</span> = <span class="text-blue">str</span>(<span class="text-green">'john pinkerton'</span>);
+                            </span>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>Treat it like a string</h2>
+                    </section>
+
+                    <section>
+                        <div class="code">
+                            <span class="fragment">
+                                <span class="text-blue">echo</span> $<span class="text-red">string</span>; <span class="text-grey">// 'john pinkerton'</span><br><br>
+                            </span>
+
+                            <span class="fragment">
+                                <span class="text-blue">strlen</span>($<span class="text-red">string</span>); <span class="text-grey">// 14</span><br>
+                                <span class="text-blue">str_shuffle</span>($<span class="text-red">string</span>); <span class="text-grey">// 'nnrjeh onpiotk'</span><br><br>
+                            </span>
+
+                            <span class="fragment">
+                                $<span class="text-red">string</span> == <span class="text-green">'john pinkerton'</span>; <span class="text-grey">// true</span><br><br>
+                            </span>
+
+                            <span class="fragment">
+                                $<span class="text-red">string</span>[<span class="text-orange">2</span>]; <span class="text-grey">// 'h'</span>
+                            </span>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>Use the built-in methods</h2>
+                    </section>
+
+                    <section>
+                        <div class="code">
+                            $<span class="text-red">string</span>-&gt;<span class="text-blue">substring</span>(<span class="text-orange">5</span>, <span class="text-orange">4</span>); <span class="text-grey">// 'pink'</span><br><br>
+
+                            $<span class="text-red">string</span>-&gt;<span class="text-blue">append</span>(<span class="text-green">' jr'</span>); <span class="text-grey">// 'john pinkerton jr'</span><br><br>
+
+                            $<span class="text-red">string</span>-&gt;<span class="text-blue">equals</span>(<span class="text-green">'john pinkerton'</span>); <span class="text-grey">// true</span><br>
+                            $<span class="text-red">string</span>-&gt;<span class="text-blue">equals</span>(<span class="text-green">'jim ponkerton'</span>);  <span class="text-grey">// false</span><br><br>
+
+                            $<span class="text-red">string</span>-&gt;<span class="text-blue">contains</span>(<span class="text-green">'pink'</span>);   <span class="text-grey">// true</span><br>
+                            $<span class="text-red">string</span>-&gt;<span class="text-blue">contains</span>(<span class="text-green">'purple'</span>); <span class="text-grey">// false</span><br><br>
+
+                            $<span class="text-red">string</span>-&gt;<span class="text-blue">length</span>(); <span class="text-grey">// 14</span><br>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>Chain methods for fun and profit</h2>
+                    </section>
+
+                    <section>
+                        <div class="code">
+                            <span class="fragment">
+                                $<span class="text-red">string</span>-&gt;<span class="text-blue">append</span>(<span class="text-green">' jr'</span>)-&gt;<span class="text-blue">uppercaseWords</span>(); <span class="text-grey">// 'John Pinkerton Jr'</span>;<br><br>
+
+                                $<span class="text-red">string</span>-&gt;<span class="text-blue">substring</span>(<span class="text-orange">5</span>, <span class="text-orange">4</span>)-&gt;<span class="text-blue">equals</span>(<span class="text-green">'pink'</span>); <span class="text-grey">// true</span>;
+                            </span>
+
+                            <br><br><br>
+
+                            <span class="fragment">
+                                Twine\<span class="text-yellow">Str</span>::<span class="text-blue">make</span>(<span class="text-green">'john pinkerton'</span>)-&gt;<span class="text-blue">length</span>(); <span class="text-grey">// 14</span>
+                            </span>
+
+                            <br><br>
+
+                            <span class="fragment">
+                                <span class="text-blue">str</span>(<span class="text-green">'john pinkerton'</span>)-&gt;<span class="text-blue">shuffle</span>(); <span class="text-grey">// 'ohjine nokrtpn'</span>;
+                            </span>
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <h1>DEMO</h1>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>Problem solved!</h1>
+                    </section>
+
+                    <section>
+                        <h2>Consistent & Clear Naming</h2>
+                    </section>
+
+                    <section>
+                        <table style="width: 80%;">
+                            <tbody style="font-size: 150%; text-align: center;">
+                                <tr>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"><code>substring</code></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"><code>format</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"><code>padLeft</code></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"><code>uppercaseFirst</code></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"><code>lowercaseWords</code></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"><code>base64</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"><code>camelCase</code></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"><code>wrapHard</code></td>
+                                    <td style="border: none; padding: 2rem; 1rem; text-align: center;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <section>
+                        <h2>Consistent Parameters</h2>
+                    </section>
+
+                    <section>
+                        <div class="code">
+                            Twine\<span class="text-yellow">Str</span>::<span class="text-blue">pad</span> ( <span class="text-purple">int</span> $<span class="text-red">length</span> , <span class="text-purple">string</span> $<span class="text-red">padding</span> , <span class="text-purple">int</span> $<span class="text-red">mode</span> )<br><br>
+
+                            Twine\<span class="text-yellow">Str</span>::<span class="text-blue">replace</span> ( <span class="text-purple">string|array</span> $<span class="text-red">search</span> , <span class="text-purple">string|array</span> $<span class="text-red">replace</span> )<br><br>
+
+                            Twine\<span class="text-yellow">Str</span>::<span class="text-blue">wrap</span> ( <span class="text-purple">int</span> $<span class="text-red">width</span> , <span class="text-purple">string</span> $<span class="text-red">break</span> , <span class="text-purple">bool</span> $<span class="text-red">mode</span> )
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>Outside-in Operations</h2>
+                    </section>
+
+                    <section>
+                        <div class="code">
+                            <div class="fragment">
+                                $<span class="text-red">contents</span> = <span class="text-blue">file_get_contents</span>(<span class="text-green">'garbage.bin'</span>);
+                            </div>
+
+                            <br>
+
+                            <div class="fragment">
+                                $<span class="text-red">string</span> = <span class="text-purple">new</span> Twine\<span class="text-yellow">Str</span>($<span class="text-red">contents</span>);
+                            </div>
+
+                            <br>
+
+                            <div class="fragment">
+                                $<span class="text-red">string</span>-><span class="text-blue">base64</span>()-&gt;<span class="text-blue">wrap</span>(<span class="text-orange">80</span>)-&gt;<span class="text-blue">replace</span>(<span class="text-green">"\n"</span>, <span class="text-green">'&lt;br&gt;'</span>);
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>Questions & Answers</h1>
+                    </section>
+
+                    <section>
+                        <h2>What else would you like to see Twine do?</h2>
+                    </section>
+
+                    <section>
+                        <h2>Audience Questions</h2>
+
+                        <div class="code">
+                            $<span class="text-red">questions</span> = [<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple">new</span> Twine\<span class="text-yellow">Str</span>(<span class="text-green">'Shall we play a game?'</span>),<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple">new</span> Twine\<span class="text-yellow">Str</span>(<span class="text-green">"Aren't you a little short for a stormtrooper?"</span>),<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple">new</span> Twine\<span class="text-yellow">Str</span>(<span class="text-green">"WHAT'S IN THA BAHX?!!!"</span>)<br>
+                            ];
+                        </div>
+                    </section>
+                </section>
+
+
+                <section>
+                    <section>
+                        <h1>
+                            Acknowledgments
+                            <div class="sub-title">
+                                I'd like to thank the academy...
+                            </div>
+                        </h1>
+                    </section>
+
+                    <section>
+                        <div>
+                            <img src="images/laravel-news.jpg" alt="Laravel News" style="box-shadow: 0 4px 8px rgba(0, 0, 0, .33);">
+                        </div>
+
+                        <code>https://laravel-news.com/twine-string-manipulation-leveled-up</code>
+                    </section>
+
+                    <section>
+                        <div>
+                            <img src="images/azphp.png" alt="azPHP" style="box-shadow: 0 4px 8px rgba(0, 0, 0, .33);">
+                        </div>
+                        azPHP & Gordon
+                    </section>
+                </section>
+
+                <section>
+                    <div style="display: flex; justify-content: space-around; align-items: center;">
+                        <div style="width: 30%;">
+                            <img src="images/twitter.svg" alt="Twitter" width="480px">
+                        </div>
+
+                        <div style="width: 40%;">
+                            <img src="images/chris.jpg" alt="Chris Kankiewicz" width="640px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, .33);">
+                        </div>
+
+                        <div style="width: 30%;">
+                            <img src="images/octocat.png" alt="Octocat" width="400px">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-around; align-items: center;">
+                        <h4 style="width: 30%;">@PHLAK</h4>
+                        <h3 style="width: 40%;">Chris Kankiewicz</h3>
+                        <h4 style="width: 30%;">PHLAK</h4>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // More info about config & dependencies:
+            // - https://github.com/hakimel/reveal.js#configuration
+            // - https://github.com/hakimel/reveal.js#dependencies
+            Reveal.initialize({
+                width: 1920,
+                height: 1080,
+                dependencies: [
+                    { src: 'plugin/notes/notes.js', async: true }
+                ]
+            });
+        </script>
+    </body>
+</html>
