@@ -106,6 +106,7 @@
                             <span class="text-blue">str_pad</span> ( <span class="text-purple">string</span> $<span class="text-red">input</span> , <span class="text-purple">mixed</span> $<span class="text-red">pad_length</span> , <span class="text-purple">string</span> $<span class="text-red">pad_string</span> )<br><br>
                             <span class="text-blue">str_replace</span> ( <span class="text-purple">mixed</span> $<span class="text-red">search</span> , <span class="text-purple">mixed</span> $<span class="text-red">replace</span> , <span class="text-purple">mixed</span> $<span class="text-red">subject</span> )<br><br>
                             <span class="text-blue">wordwrap</span> ( <span class="text-purple">string</span> $<span class="text-red">str</span> , <span class="text-purple">int</span> $<span class="text-red">width</span> )<br><br>
+
                             <span class="text-blue">explode</span> ( <span class="text-purple">string</span> $<span class="text-red">delimiter</span> , <span class="text-purple">string</span> $<span class="text-red">string</span> )
                         </div>
                     </section>
@@ -125,13 +126,15 @@
 
                     <section>
                         <div class="code">
-                            <span class="fragment">
-                                $<span class="text-red">contents</span> = <span class="text-blue">file_get_contents</span>(<span class="text-green">'garbage.bin'</span>);<br><br>
-                            </span>
+                            <div class="fragment">
+                                $<span class="text-red">contents</span> = <span class="text-blue">file_get_contents</span>(<span class="text-green">'garbage.bin'</span>);
+                            </div>
 
-                            <span class="fragment">
+                            <br>
+
+                            <div class="fragment">
                                 <span class="text-blue">str_replace</span>(<span class="text-green">"\n"</span>, <span class="text-green">'&lt;br&gt;'</span>, <span class="text-blue">wordwrap</span>(<span class="text-blue">base64_encode</span>($<span class="text-red">contents</span>), <span class="text-orange">80</span>));
-                            </span>
+                            </div>
                         </div>
                     </section>
 
@@ -204,23 +207,29 @@
 
                     <section>
                         <div class="code">
-                            <span class="fragment">
-                                <span class="text-purple">use</span> PHLAK\<span class="text-yellow">Twine</span>;<br><br>
-                            </span>
+                            <div class="fragment">
+                                <span class="text-purple">use</span> PHLAK\<span class="text-yellow">Twine</span>;
+                            </div>
 
-                            <span class="fragment">
-                                $<span class="text-red">string</span> = <span class="text-purple">new</span> Twine\<span class="text-yellow">Str</span>(<span class="text-green">'john pinkerton'</span>);<br><br>
-                            </span>
+                            <br>
 
-                            <span class="fragment">
+                            <div class="fragment">
+                                $<span class="text-red">string</span> = <span class="text-purple">new</span> Twine\<span class="text-yellow">Str</span>(<span class="text-green">'john pinkerton'</span>);
+                            </div>
+
+                            <br>
+
+                            <div class="fragment">
                                 <span class="text-grey">// or with the static make() method</span><br>
-                                $<span class="text-red">string</span> = Twine\<span class="text-yellow">Str</span>::<span class="text-blue">make</span>(<span class="text-green">'john pinkerton'</span>);<br><br>
-                            </span>
+                                $<span class="text-red">string</span> = Twine\<span class="text-yellow">Str</span>::<span class="text-blue">make</span>(<span class="text-green">'john pinkerton'</span>);
+                            </div>
 
-                            <span class="fragment">
+                            <br>
+
+                            <div class="fragment">
                                 <span class="text-grey">// or with the helper function</span><br>
                                 $<span class="text-red">string</span> = <span class="text-blue">str</span>(<span class="text-green">'john pinkerton'</span>);
-                            </span>
+                            </div>
                         </div>
                     </section>
 
@@ -230,22 +239,28 @@
 
                     <section>
                         <div class="code">
-                            <span class="fragment">
-                                <span class="text-blue">echo</span> $<span class="text-red">string</span>; <span class="text-grey">// 'john pinkerton'</span><br><br>
-                            </span>
+                            <div class="fragment">
+                                <span class="text-blue">echo</span> $<span class="text-red">string</span>; <span class="text-grey">// 'john pinkerton'</span>
+                            </div>
 
-                            <span class="fragment">
+                            <br>
+
+                            <div class="fragment">
                                 <span class="text-blue">strlen</span>($<span class="text-red">string</span>); <span class="text-grey">// 14</span><br>
-                                <span class="text-blue">str_shuffle</span>($<span class="text-red">string</span>); <span class="text-grey">// 'nnrjeh onpiotk'</span><br><br>
-                            </span>
+                                <span class="text-blue">str_shuffle</span>($<span class="text-red">string</span>); <span class="text-grey">// 'nnrjeh onpiotk'</span>
+                            </div>
 
-                            <span class="fragment">
-                                $<span class="text-red">string</span> == <span class="text-green">'john pinkerton'</span>; <span class="text-grey">// true</span><br><br>
-                            </span>
+                            <br>
 
-                            <span class="fragment">
+                            <div class="fragment">
+                                $<span class="text-red">string</span> == <span class="text-green">'john pinkerton'</span>; <span class="text-grey">// true</span>
+                            </div>
+
+                            <br>
+
+                            <div class="fragment">
                                 $<span class="text-red">string</span>[<span class="text-orange">2</span>]; <span class="text-grey">// 'h'</span>
-                            </span>
+                            </div>
                         </div>
                     </section>
 
@@ -257,15 +272,13 @@
                         <div class="code">
                             $<span class="text-red">string</span>-&gt;<span class="text-blue">substring</span>(<span class="text-orange">5</span>, <span class="text-orange">4</span>); <span class="text-grey">// 'pink'</span><br><br>
 
-                            $<span class="text-red">string</span>-&gt;<span class="text-blue">append</span>(<span class="text-green">' jr'</span>); <span class="text-grey">// 'john pinkerton jr'</span><br><br>
-
                             $<span class="text-red">string</span>-&gt;<span class="text-blue">equals</span>(<span class="text-green">'john pinkerton'</span>); <span class="text-grey">// true</span><br>
                             $<span class="text-red">string</span>-&gt;<span class="text-blue">equals</span>(<span class="text-green">'jim ponkerton'</span>);  <span class="text-grey">// false</span><br><br>
 
                             $<span class="text-red">string</span>-&gt;<span class="text-blue">contains</span>(<span class="text-green">'pink'</span>);   <span class="text-grey">// true</span><br>
                             $<span class="text-red">string</span>-&gt;<span class="text-blue">contains</span>(<span class="text-green">'purple'</span>); <span class="text-grey">// false</span><br><br>
 
-                            $<span class="text-red">string</span>-&gt;<span class="text-blue">length</span>(); <span class="text-grey">// 14</span><br>
+                            $<span class="text-red">string</span>-&gt;<span class="text-blue">length</span>(); <span class="text-grey">// 14</span>
                         </div>
                     </section>
 
@@ -275,23 +288,19 @@
 
                     <section>
                         <div class="code">
-                            <span class="fragment">
-                                $<span class="text-red">string</span>-&gt;<span class="text-blue">append</span>(<span class="text-green">' jr'</span>)-&gt;<span class="text-blue">uppercaseWords</span>(); <span class="text-grey">// 'John Pinkerton Jr'</span>;<br><br>
+                            <div class="fragment">
+                                $<span class="text-red">string</span>-&gt;<span class="text-blue">append</span>(<span class="text-green">' jr'</span>)-&gt;<span class="text-blue">uppercaseWords</span>(); <span class="text-grey">// 'John Pinkerton Jr'</span><br><br>
 
-                                $<span class="text-red">string</span>-&gt;<span class="text-blue">substring</span>(<span class="text-orange">5</span>, <span class="text-orange">4</span>)-&gt;<span class="text-blue">equals</span>(<span class="text-green">'pink'</span>); <span class="text-grey">// true</span>;
-                            </span>
-
-                            <br><br><br>
-
-                            <span class="fragment">
-                                Twine\<span class="text-yellow">Str</span>::<span class="text-blue">make</span>(<span class="text-green">'john pinkerton'</span>)-&gt;<span class="text-blue">length</span>(); <span class="text-grey">// 14</span>
-                            </span>
+                                $<span class="text-red">string</span>-&gt;<span class="text-blue">substring</span>(<span class="text-orange">5</span>, <span class="text-orange">4</span>)-&gt;<span class="text-blue">equals</span>(<span class="text-green">'pink'</span>); <span class="text-grey">// true</span>
+                            </div>
 
                             <br><br>
 
-                            <span class="fragment">
-                                <span class="text-blue">str</span>(<span class="text-green">'john pinkerton'</span>)-&gt;<span class="text-blue">shuffle</span>(); <span class="text-grey">// 'ohjine nokrtpn'</span>;
-                            </span>
+                            <div class="fragment">
+                                Twine\<span class="text-yellow">Str</span>::<span class="text-blue">make</span>(<span class="text-green">'john pinkerton'</span>)-&gt;<span class="text-blue">length</span>(); <span class="text-grey">// 14</span><br><br>
+
+                                <span class="text-blue">str</span>(<span class="text-green">'john pinkerton'</span>)-&gt;<span class="text-blue">shuffle</span>(); <span class="text-grey">// 'ohjine nokrtpn'</span>
+                            </div>
                         </div>
                     </section>
                 </section>
