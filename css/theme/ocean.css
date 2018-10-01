@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:200,400,700');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:200,400,700|Ubuntu+Mono');
 
 /*********************************************
  * GLOBAL STYLES
@@ -150,12 +150,12 @@ body {
   margin: 20px auto;
   text-align: left;
   font-size: 2.85rem;
-  font-family: monospace;
+  font-family: 'Ubuntu Mono', monospace;
   line-height: 5rem;
   word-wrap: break-word; }
 
 .reveal code {
-  font-family: monospace;
+  font-family: 'Ubuntu Mono', monospace;
   text-transform: none; }
 
 .reveal pre code {
